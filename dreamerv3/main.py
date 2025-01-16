@@ -29,7 +29,11 @@ def main(argv=None):
         config = config.update(configs[name])
     config = elements.Flags(config).parse(other)
     config = config.update(
-        logdir=(config.logdir.format(timestamp=elements.timestamp()))
+        logdir=(
+            config.logdir.format(
+                timestamp=elements.timestamp(), task=config.task, seed=config.seed
+            )
+        )
     )
 
     if "JOB_COMPLETION_INDEX" in os.environ:
