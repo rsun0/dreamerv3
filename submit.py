@@ -7,10 +7,12 @@ def run_exp():
     param_dict = {
         "--logdir": ["/storage/raysun/dreamerv3/{task}_{seed}"],
         "--configs": ["atari100k"],
+        "--run.log_every": [120],
+        "--run.report_every": [300],
         "--run.save_every": [10000],
-        "--run.train_ratio": [1024],
-        "--seed": range(1, 5),
-        "--task": ["atari_pong"],
+        "--seed": range(0, 5),
+        "--task": ["atari100k_pong"],
+        "--logger.outputs": ["jsonl wandb"],
     }
     job_name = "dreamerv3_pong"
 
