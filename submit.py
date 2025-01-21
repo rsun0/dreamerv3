@@ -6,10 +6,11 @@ def run_exp():
 
     param_dict = {
         "--script": ["train_eval"],
-        "--logdir": ["/storage/raysun/dreamerv3/{task}_{seed}"],
+        "--logdir": ["/storage/raysun/dreamerv3/train_eval_{task}_{seed}"],
         "--configs": ["atari100k"],
-        "--run.log_every": [120],
-        "--run.report_every": [300],
+        "--run.eval_eps": [100],
+        "--run.log_every": [1000],
+        "--run.report_every": [10000],
         "--run.save_every": [10000],
         "--seed": range(0, 5),
         "--task": ["atari100k_pong"],
