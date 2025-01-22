@@ -61,7 +61,7 @@ def train_eval(
       logger.add({
           'score': result.pop('score'),
           'length': result.pop('length'),
-      }, prefix='{mode}_episode')
+      }, prefix=f'{mode}_episode')
       rew = result.pop('rewards')
       if len(rew) > 1:
         result['reward_rate'] = (np.abs(rew[1:] - rew[:-1]) >= 0.01).mean()
