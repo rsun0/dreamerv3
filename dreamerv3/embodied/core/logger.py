@@ -228,8 +228,7 @@ class TensorBoardOutput(AsyncOutput):
 
 class WandBOutput:
 
-  def __init__(self, pattern, logdir, config):
-    self._pattern = re.compile(pattern)
+  def __init__(self, logdir, config):
     import wandb
     wandb.init(
         project="dreamerv3",
@@ -244,7 +243,7 @@ class WandBOutput:
     bystep = collections.defaultdict(dict)
     wandb = self._wandb
     for step, name, value in summaries:
-      if len(value.shape) == 0 and self._pattern.search(name):
+      if len(value.shape) == 0:
         bystep[step][name] = float(value)
       elif len(value.shape) == 1:
         bystep[step][name] = wandb.Histogram(value)
