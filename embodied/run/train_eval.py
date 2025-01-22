@@ -58,10 +58,11 @@ def train_eval(
         episode.add(key, value, agg=('avg', 'max', 'sum'))
     if tran['is_last']:
       result = episode.result()
-      logger.add({
-          'score': result.pop('score'),
-          'length': result.pop('length'),
-      }, prefix=f'{mode}_episode')
+      if mode == 'train':
+        logger.add({
+            'score': result.pop('score'),
+            'length': result.pop('length'),
+        }, prefix='train_episode')
       rew = result.pop('rewards')
       if len(rew) > 1:
         result['reward_rate'] = (np.abs(rew[1:] - rew[:-1]) >= 0.01).mean()
