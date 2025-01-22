@@ -5,7 +5,6 @@ def run_exp():
     base_cmd = "python -B dreamerv3/train.py"
 
     param_dict = {
-        "--script": ["train_eval"],
         "--logdir": ["/storage/raysun/dreamerv3/old_dreamer_{task}_{seed}"],
         "--configs": ["atari100k"],
         "--seed": range(0, 5),
