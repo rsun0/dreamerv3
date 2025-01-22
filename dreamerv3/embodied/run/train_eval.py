@@ -12,8 +12,8 @@ def train_eval(
   print('Logdir', logdir)
   should_expl = embodied.when.Until(args.expl_until)
   should_train = embodied.when.Ratio(args.train_ratio / args.batch_steps)
-  should_log = embodied.when.Clock(args.log_every)
-  should_save = embodied.when.Clock(args.save_every)
+  should_log = embodied.when.Every(args.log_every)
+  should_save = embodied.when.Every(args.save_every)
   should_eval = embodied.when.Every(args.eval_every, args.eval_initial)
   should_sync = embodied.when.Every(args.sync_every)
   step = logger.step

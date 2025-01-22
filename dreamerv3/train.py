@@ -28,6 +28,7 @@ def main(argv=None):
   for name in parsed.configs:
     config = config.update(agt.Agent.configs[name])
   config = embodied.Flags(config).parse(other)
+  config = config.update(logdir=(config.logdir.format(task=config.task, seed=config.seed)))
   args = embodied.Config(
       **config.run, logdir=config.logdir,
       batch_steps=config.batch_size * config.batch_length)
@@ -111,8 +112,8 @@ def make_logger(parsed, logdir, step, config):
       embodied.logger.TerminalOutput(config.filter),
       embodied.logger.JSONLOutput(logdir, 'metrics.jsonl'),
       embodied.logger.JSONLOutput(logdir, 'scores.jsonl', 'episode/score'),
-      embodied.logger.TensorBoardOutput(logdir),
-      # embodied.logger.WandBOutput(logdir.name, config),
+      # embodied.logger.TensorBoardOutput(logdir),
+      embodied.logger.WandBOutput(logdir.name, config),
       # embodied.logger.MLFlowOutput(logdir.name),
   ], multiplier)
   return logger
