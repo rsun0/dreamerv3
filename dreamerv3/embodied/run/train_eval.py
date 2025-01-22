@@ -1,4 +1,5 @@
 import re
+import statistics
 
 import embodied
 import numpy as np
@@ -28,6 +29,8 @@ def train_eval(
   if hasattr(train_replay, '_sample'):
     timer.wrap('replay', train_replay, ['_sample'])
 
+  eval_episode_scores = []
+  eval_episode_lengths = []
   nonzeros = set()
   def per_episode(ep, mode):
     length = len(ep['reward']) - 1
@@ -36,6 +39,9 @@ def train_eval(
         'length': length, 'score': score,
         'reward_rate': (ep['reward'] - ep['reward'].min() >= 0.1).mean(),
     }, prefix=('episode' if mode == 'train' else f'{mode}_episode'))
+    if mode == 'eval':
+      eval_episode_scores.append(score)
+      eval_episode_lengths.append(length)
     print(f'Episode has {length} steps and return {score:.1f}.')
     stats = {}
     for key in args.log_keys_video:
@@ -117,6 +123,15 @@ def train_eval(
       print('Starting evaluation at step', int(step))
       driver_eval.reset()
       driver_eval(policy_eval, episodes=max(len(eval_env), args.eval_eps))
+      mean_episode_score = statistics.fmean(eval_episode_scores)
+      mean_episode_length = statistics.fmean(eval_episode_lengths)
+      logger.add({
+        'score': mean_episode_score,
+        'length': mean_episode_length,
+      }, prefix='eval_episode')
+      logger.write()
+      eval_episode_scores = []
+      eval_episode_lengths = []
     driver_train(policy_train, steps=100)
     if should_save(step):
       checkpoint.save()
