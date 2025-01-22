@@ -191,7 +191,7 @@ def make_logger(config):
                 )
             )
         elif output == "wandb":
-            name = "/".join(logdir.split("/")[-4:])
+            name = logdir.split("/")[-1]
             outputs.append(elements.logger.WandBOutput(name))
         elif output == "scope":
             outputs.append(elements.logger.ScopeOutput(elements.Path(logdir)))

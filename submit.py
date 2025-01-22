@@ -6,17 +6,17 @@ def run_exp():
 
     param_dict = {
         "--script": ["train_eval"],
-        "--logdir": ["/storage/raysun/dreamerv3/eval_test_{task}_{seed}"],
-        "--configs": ["atari100k"],
+        "--logdir": ["/storage/raysun/dreamerv3/small_{task}_{seed}"],
+        "--configs": ["atari100k size12m"],
         "--run.eval_eps": [100],
         "--run.log_every": [1000],
         "--run.report_every": [10000],
         "--run.save_every": [100000],
         "--seed": range(0, 5),
-        "--task": ["atari100k_jamesbond", "atari100k_kung_fu_master", "atari100k_up_n_down"],
+        "--task": ["atari100k_pong"],
         "--logger.outputs": ["jsonl wandb"],
     }
-    job_name = "dreamerv3_three"
+    job_name = "dreamerv3_small"
 
     launch_tasks(
         param_option=1,
