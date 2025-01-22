@@ -11,12 +11,12 @@ def run_exp():
         "--run.eval_eps": [100],
         "--run.log_every": [1000],
         "--run.report_every": [10000],
-        "--run.save_every": [10000],
-        "--seed": [0],
-        "--task": ["atari100k_alien"],
+        "--run.save_every": [100000],
+        "--seed": range(0, 5),
+        "--task": ["atari100k_jamesbond", "atari100k_kung_fu_master", "atari100k_up_n_down"],
         "--logger.outputs": ["jsonl wandb"],
     }
-    job_name = "eval_test_alien"
+    job_name = "dreamerv3_three"
 
     launch_tasks(
         param_option=1,
