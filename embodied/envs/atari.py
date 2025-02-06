@@ -1,3 +1,4 @@
+import elements
 import embodied
 import numpy as np
 
@@ -74,18 +75,18 @@ class Atari(embodied.Env):
     def obs_space(self):
         shape = self._size + (1 if self._gray else 3,)
         return {
-            "image": embodied.Space(np.uint8, shape),
-            "reward": embodied.Space(np.float32),
-            "is_first": embodied.Space(bool),
-            "is_last": embodied.Space(bool),
-            "is_terminal": embodied.Space(bool),
+            "image": elements.Space(np.uint8, shape),
+            "reward": elements.Space(np.float32),
+            "is_first": elements.Space(bool),
+            "is_last": elements.Space(bool),
+            "is_terminal": elements.Space(bool),
         }
 
     @property
     def act_space(self):
         return {
-            "action": embodied.Space(np.int32, (), 0, self._env.action_space.n),
-            "reset": embodied.Space(bool),
+            "action": elements.Space(np.int32, (), 0, self._env.action_space.n),
+            "reset": elements.Space(bool),
         }
 
     def step(self, action):
