@@ -17,7 +17,11 @@ class Atari(embodied.Env):
         sticky=True,
         actions="all",
         length=108000,
+        pooling=2,
+        aggregate="max",
         resize="opencv",
+        autostart=False,
+        clip_reward=False,
         seed=None,
     ):
         assert size[0] == size[1]
