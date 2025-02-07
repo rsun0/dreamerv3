@@ -23,7 +23,6 @@ def run_exp():
         partition="rtx3090",
         timeout="7-00:00:00",
         job_name=job_name,
-        max_job_num=32,
     )
 
 
