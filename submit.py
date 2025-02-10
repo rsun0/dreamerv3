@@ -5,10 +5,12 @@ def run_exp():
     base_cmd = "python -B dreamerv3/main.py"
 
     param_dict = {
+        "--script": ["train_eval"],
+        "--eval_eps": [100],
         "--logdir": ["/storage/raysun/dreamerv3/old_atari_{task}_{seed}"],
         "--configs": ["atari100k"],
-        "--run.log_every": [1000],
-        "--run.report_every": [10000],
+        "--run.log_every": [10000],
+        "--run.report_every": [400000],
         "--run.save_every": [0],
         "--task": [
             "atari100k_alien",

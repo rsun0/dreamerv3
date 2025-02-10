@@ -192,7 +192,7 @@ def make_logger(config):
             )
         elif output == "wandb":
             name = logdir.split("/")[-1]
-            outputs.append(elements.logger.WandBOutput(name))
+            outputs.append(elements.logger.WandBOutput(name, pattern=r"^(?!.*image).*$"))
         elif output == "scope":
             outputs.append(elements.logger.ScopeOutput(elements.Path(logdir)))
         else:
